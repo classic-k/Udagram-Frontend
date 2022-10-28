@@ -3,7 +3,11 @@ name: frontendCI
 on:
 
   push:
-    branches: dev
+    branches:
+    - dev
+  pull_request:
+    branches:
+    - main
 
 jobs:
   dev-branch:
