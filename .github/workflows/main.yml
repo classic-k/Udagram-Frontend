@@ -3,7 +3,7 @@ name: frontendCI
 on:
 
   push:
-    branches: [ "dev" ]
+    branches: dev
 
 jobs:
   dev-branch:
