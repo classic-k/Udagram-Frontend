@@ -1,37 +1,27 @@
-name: feedCI
+name: frontendCI
 
 on:
 
   push:
     branches: [ "dev" ]
-  pull_request:
-    branches: [ "main" ,"staging"]
 
 jobs:
-  build-and-push:
-    name: Build docker images
+  dev-branch:
+    name: dev-branch
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repo
+      - name: Check dev branch
         uses: actions/checkout@v3
-      - name: check dev branch
-        run: gh pr checkout -b dev
-        env:
-          GITHUB_TOKEN: ${{secrets.GIT_TOKEN}}
-           
-      - name: ran test
-        run: bash
-      - name: login to hub
-        uses: docker/login-action@v2
         with:
-          username: ${{secrets.Docker_Username}}
-          password: ${{secrets.Docker_Password}}
-      - name: buildX
-        uses: docker/setup-buildx-action@v2
-      - name: build and push
-        uses: docker/build-push-action@v2
+          fetch-depth: 0
+          ref: 'devs'
+      - name: check stage branch
+        uses: actions/checkout@v3
         with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tag: ${{secrets.Docker_Username}}/udagram-frontend
+          ref: 'stagings'
+      - name: check-main
+        uses: actions/checkout@v3
+        with:
+          ref: 'main'
+        #env:
+          #GITHUB_TOKEN: ${{secrets.GIT_TOKEN}}
