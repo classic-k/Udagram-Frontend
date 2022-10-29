@@ -22,7 +22,7 @@ jobs:
       - name: check stage branch
         uses: actions/checkout@v3
         with:
-          ref: 'stagings'
+          ref: 'staging'
       - name: check-main
         uses: actions/checkout@v3
         with:
