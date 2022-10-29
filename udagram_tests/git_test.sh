@@ -22,4 +22,4 @@ if [[ "$(git checkout -b $br[3])" != "$m3" ]]; then
 fi
 cbr=$(${GITHUB_REF#refs/heads/})
 echo $cbr
-echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+#echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
