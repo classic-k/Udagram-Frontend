@@ -20,7 +20,5 @@ if [[ "$(git checkout -b $br[3])" != "$m3" ]]; then
     echo "$m3"
     exit 1
 fi
-if [[ "$(git status -b $br[2])" != "$m2" ]]; then
-    echo "$m2"
-    exit 1
-fi
+cbr=$(${GITHUB_REF#refs/heads/})
+echo $cbr
