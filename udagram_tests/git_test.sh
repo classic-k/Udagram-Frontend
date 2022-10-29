@@ -5,9 +5,9 @@
 #verify cannot push to staging or master (protected branches)
 
 brs=(dev staging main)
-m1=fatal: A branch named '$brs[1]' already exists.
-m2=fatal: A branch named '$brs[2]' already exists.
-m3=fatal: A branch named '$brs[3]' already exists.
+m1="fatal: A branch named '$brs[1]' already exists."
+m2="fatal: A branch named '$brs[2]' already exists."
+m3="fatal: A branch named '$brs[3]' already exists."
 if [[ "$(git checkout -b $br[1])" != "$m1" ]]; then
     echo "$m1"
     exit 1
