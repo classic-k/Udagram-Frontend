@@ -7,9 +7,9 @@
 brs1=dev
 brs2=staging
 brs3=main
-m1="fatal: a branch named '$brs1' already exists"
-m2="fatal: a branch named '$brs2' already exists"
-m3="fatal: a branch named '$brs3' already exists"
+m1="fatal: a branch named '$br1' already exists"
+m2="fatal: a branch named '$br2' already exists"
+m3="fatal: a branch named '$br3' already exists"
 if [[ "$(git checkout -b $brs1)" != "$m1" ]]; then
     echo "inv $m1"
     exit 1
