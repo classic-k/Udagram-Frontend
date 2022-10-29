@@ -11,15 +11,15 @@ m1="fatal: A branch named '$brs1' already exists"
 m2="fatal: A branch named '$brs2' already exists"
 m3="fatal: A branch named '$brs3' already exists"
 if [[ "$(git checkout -b $brs1)" != "$m1" ]]; then
-    echo "$m1"
+    echo "inv $m1"
     exit 1
 fi
 if [[ "$(git checkout -b $brs2)" != "$m2" ]]; then
-    echo "$m2"
+    echo "inv2 $m2"
     exit 1
 fi
 if [[ "$(git checkout -b $brs3)" != "$m3" ]]; then
-    echo "$m3"
+    echo "inv3 $m3"
     exit 1
 fi
 cbr=$(${GITHUB_REF#refs/heads/})
