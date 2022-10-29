@@ -8,25 +8,19 @@ on:
   pull_request:
     branches:
     - main
+    - staging
+    - dev
 
 jobs:
   dev-branch:
     name: dev-branch
     runs-on: ubuntu-latest
     steps:
-      - name: Check dev branch
+      - name: Check For Branched
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          ref: 'dev'
       - name: check stage branch
-        uses: actions/checkout@v3
-        with:
-          ref: 'staging'
-      - name: check-main
-        uses: actions/checkout@v3
-        with:
-          ref: 'main'
+        run: ./udagram_tests/git_test.sh
+        shell: bash
       - name: chk
         run: git status
         #env:
