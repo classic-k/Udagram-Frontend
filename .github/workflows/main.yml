@@ -1,0 +1,33 @@
+name: frontendCI
+
+on:
+
+  push:
+    branches:
+    - dev
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  dev-branch:
+    name: dev-branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check dev branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: 'dev'
+      - name: check stage branch
+        uses: actions/checkout@v3
+        with:
+          ref: 'staging'
+      - name: check-main
+        uses: actions/checkout@v3
+        with:
+          ref: 'main'
+      - name: chk
+        run: git status
+        #env:
+          #GITHUB_TOKEN: ${{secrets.GIT_TOKEN}}
