@@ -46,9 +46,8 @@ echo "Add updates to readme to test push" >> README.md
 git add README.md
 git commit -m "Test Push"
 #output=$(git push | grep -o 'Protected.*' 2>$1)
-output=$(git push)
+output=$(git push 2>$1)
 err=$(echo "Protected branch update failed for refs/heads/$st")
-echo "$err"
 echo "output $output end"
 if [[ $output != $err ]]; then
     echo "Protection rule failed"
@@ -64,7 +63,6 @@ git add README.md
 git commit -m "Test Push"
 output=$(git push | grep -o 'Protected.*'  2>&1)
 err=$(echo "Protected branch update failed for refs/heads/$ms")
-echo "$err"
 echo "output: $output"
 if [[ $output != $err ]]; then
     echo "Protection rule failed"
