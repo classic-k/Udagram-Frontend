@@ -48,7 +48,7 @@ git commit -m "Test Push"
 output=$(git push | grep -o 'Protected.*')
 err=$(echo "Protected branch update failed for refs/heads/$st")
 echo "$err"
-echo "$output"
+echo "output $output"
 if [[ $output != $err ]]; then
     echo "Protection rule failed"
     exit 1
@@ -64,7 +64,7 @@ git commit -m "Test Push"
 output=$(git push | grep -o 'Protected.*')
 err=$(echo "Protected branch update failed for refs/heads/$ms")
 echo "$err"
-echo "$output"
+echo "output: $output"
 
 if [[ $output != $err ]]; then
     echo "Protection rule failed"
