@@ -49,9 +49,9 @@ output=$(git push | grep -o 'Protected.*')
 err=$(echo "Protected branch update failed for refs/heads/$st")
 echo "$err"
 echo "output $output"
-echo "Status $? $0 $1"
-if [[ $? == 0 ]]; then
-   output=$(echo "$0" | grep -o 'Protected.*')
+echo "Status $? $1 $2"
+if [[ $? == 1 ]]; then
+   output=$(echo "$2" | grep -o 'Protected.*')
 fi
 if [[ $output != $err ]]; then
     echo "Protection rule failed"
@@ -69,9 +69,9 @@ output=$(git push | grep -o 'Protected.*'  2>&1)
 err=$(echo "Protected branch update failed for refs/heads/$ms")
 echo "$err"
 echo "output: $output"
-echo "Status $? $0 $1"
-if [[ $? == 0 ]]; then
-   output=$(echo "$0" | grep -o 'Protected.*')
+echo "Status $? $1 $2"
+if [[ $? == 1 ]]; then
+   output=$(echo "$2" | grep -o 'Protected.*')
 fi
 if [[ $output != $err ]]; then
     echo "Protection rule failed"
