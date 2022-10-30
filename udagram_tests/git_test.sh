@@ -33,19 +33,42 @@ cur=$(echo "$bs" | grep '*')
 cur=$(echo "$cur" | grep -o '[A-Za-z]*')
 echo "Current branch: $cur"
 #verify cannot push to staging or master (protected branches)
-#Test staging push
+
+#remote: error: GH006: Protected branch update failed for refs/heads/staging.
+
+#WHOAMI
 git config --global user.name "classic-k"
 git config --global user.email "classicconceptone@gmail.com"
+
+##Test staging push
 git checkout staging
 echo "Add updates to readme to test push" >> README.md
 git add README.md
 git commit -m "Test Push"
-output=$(git push)
+output=$(git push | grep 'Protected.*')
+err=$(echo "Protected branch update failed for refs/heads/$st")
+echo "$err"
 echo "$output"
+if [[ $output != $err ]]; then
+    echo "Protection rule failed"
+    exit 1
+else
+echo "$st branch Protected"
+fi
 
+#Test Main Push
 git checkout main
 echo "Add updates to readme to test push" >> README.md
 git add README.md
 git commit -m "Test Push"
-output=$(git push)
+output=$(git push | grep 'Protected.*')
+err=$(echo "Protected branch update failed for refs/heads/$ms")
+echo "$err"
 echo "$output"
+
+if [[ $output != $err ]]; then
+    echo "Protection rule failed"
+    exit 1
+else
+echo "$ms branch Protected"
+fi
