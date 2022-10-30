@@ -34,7 +34,8 @@ cur=$(echo "$cur" | grep -o '[A-Za-z]*')
 echo "Current branch: $cur"
 #verify cannot push to staging or master (protected branches)
 #Test staging push
-
+git config --global user.name "classic-k"
+git config --global user.email "classicconceptone@gmail.com"
 git checkout staging
 echo "Add updates to readme to test push" >> README.md
 git add README.md
