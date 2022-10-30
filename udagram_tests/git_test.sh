@@ -45,7 +45,8 @@ git checkout staging
 echo "Add updates to readme to test push" >> README.md
 git add README.md
 git commit -m "Test Push"
-output=$(git push | grep -o 'Protected.*' 2>$1)
+#output=$(git push | grep -o 'Protected.*' 2>$1)
+output=$(git push)
 err=$(echo "Protected branch update failed for refs/heads/$st")
 echo "$err"
 echo "output $output"
