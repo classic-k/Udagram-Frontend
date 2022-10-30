@@ -1,27 +1,50 @@
 #!/bin/bash
 #@ TODO notes
-#Verify dev, staging, and master exist
-#verify working on feature branch or similar
-#verify cannot push to staging or master (protected branches)
 
-brs1=dev
-brs2=staging
-brs3=main
-m1="fatal: a branch named '$brs1' already exists"
-m2="fatal: a branch named '$brs2' already exists"
-m3="fatal: a branch named '$brs3' already exists"
-if [[ "$(git checkout -b $brs1 2>&1)" != "$m1" ]]; then
-    echo "inv $m1"
+# Verify dev, staging and main exist
+bs="$(git branch -a)"
+
+dv=$(echo "$bs" | grep -o 'dev' -m 1)
+
+st=$(echo "$bs" | grep -o 'staging' -m 1)
+
+ms=$(echo "$bs" | grep -o 'main' -m 1)
+
+if [[ "$dv" != "dev" ]]; then
+    echo "Dev branch does not exist"
     exit 1
+else
+echo "$dv branch exist"
 fi
-if [[ "$(git checkout -b $brs2)" != "$m2" ]]; then
-    echo "inv2 $m2"
+if [[ "$st" != "staging" ]]; then
+    echo "Staging branch does not exist"
     exit 1
+else
+echo "$st branch exist"
 fi
-if [[ "$(git checkout -b $brs3)" != "$m3" ]]; then
-    echo "inv3 $m3"
+if [[ "$ms" != "main" ]]; then
+    echo "Main branch does not exist"
     exit 1
+else
+echo "$ms branch exist"
 fi
-cbr=$(${GITHUB_REF#refs/heads/})
-echo $cbr
-#echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+#Verify working on feature branch or similar
+cur=$(echo "$bs" | grep '*')
+cur=$(echo "$cur" | grep -o '[A-Za-z]*')
+echo "Current branch: $cur"
+#verify cannot push to staging or master (protected branches)
+#Test staging push
+
+git checkout staging
+echo "Add updates to readme to test push" >> README.md
+git add README.md
+git commit -m "Test Push"
+output=$(git push)
+echo "$output"
+
+git checkout main
+echo "Add updates to readme to test push" >> README.md
+git add README.md
+git commit -m "Test Push"
+output=$(git push)
+echo "$output"
