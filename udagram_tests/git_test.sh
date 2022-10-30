@@ -45,14 +45,10 @@ git checkout staging
 echo "Add updates to readme to test push" >> README.md
 git add README.md
 git commit -m "Test Push"
-output=$(git push | grep -o 'Protected.*')
+output=$(git push | grep -o 'Protected.*' 2>$1)
 err=$(echo "Protected branch update failed for refs/heads/$st")
 echo "$err"
 echo "output $output"
-echo "Status $? $1 $2"
-if [[ $? == 1 ]]; then
-   output=$(echo "$2" | grep -o 'Protected.*')
-fi
 if [[ $output != $err ]]; then
     echo "Protection rule failed"
     exit 1
@@ -69,10 +65,6 @@ output=$(git push | grep -o 'Protected.*'  2>&1)
 err=$(echo "Protected branch update failed for refs/heads/$ms")
 echo "$err"
 echo "output: $output"
-echo "Status $? $1 $2"
-if [[ $? == 1 ]]; then
-   output=$(echo "$2" | grep -o 'Protected.*')
-fi
 if [[ $output != $err ]]; then
     echo "Protection rule failed"
     exit 1
