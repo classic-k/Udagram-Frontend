@@ -64,12 +64,16 @@ git checkout main
 echo "Add updates to readme to test push" >> README.md
 git add README.md
 git commit -m "Test Push"
-output=$(git push | grep -o 'Protected.*'  1>&2)
-err=$(echo "Protected branch update failed for refs/heads/$ms.")
-echo "output: $output"
-if [[ $output != $err ]]; then
+#output=$(git push | grep -o 'Protected.*' 2>$1)
+output=$(git push 2>&1)
+output=$(echo "$output" | grep -o 'Protected.*')
+err="Protected branch update failed for refs/heads/"
+err+="$ms."
+echo "Output is: $output"
+echo "Error: $err"
+if [[ "$output" == "$err" ]]; then
     echo "Protection rule failed"
     exit 1
 else
-echo "$ms branch Protected"
+echo "$st branch Protected"
 fi
