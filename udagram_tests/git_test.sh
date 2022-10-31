@@ -52,7 +52,7 @@ err="Protected branch update failed for refs/heads/"
 err+="$st."
 echo "Output is: $output"
 echo "Error: $err"
-if [[ "$output" != "$err" ]]; then
+if [[ "$output" == "$err" ]]; then
     echo "Protection rule failed"
     exit 1
 else
