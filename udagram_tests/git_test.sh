@@ -32,9 +32,9 @@ fi
 cur=$(echo "$bs" | grep '*')
 cur=$(echo "$cur" | grep -o '[A-Za-z]*')
 echo "Current branch: $cur"
-#verify cannot push to staging or master (protected branches)
 
-#remote: error: GH006: Protected branch update failed for refs/heads/staging.
+
+#verify cannot push to staging or master (protected branches)
 
 #WHOAMI
 git config --global user.name "classic-k"
@@ -75,5 +75,5 @@ if [[ "$output" == "$err" ]]; then
     echo "Protection rule failed"
     exit 1
 else
-echo "$st branch Protected"
+echo "$ms branch Protected"
 fi
