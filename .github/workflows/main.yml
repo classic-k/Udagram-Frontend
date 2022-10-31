@@ -2,32 +2,26 @@ name: frontendCI
 
 on:
 
-  push:
-    branches:
-    - dev
   pull_request:
     branches:
-    - main
+    - staging
 
 jobs:
-  dev-branch:
-    name: dev-branch
+  staging-branch:
+    name: stage-branch-pr
     runs-on: ubuntu-latest
     steps:
-      - name: Check dev branch
+      - name: Stage PR Review
         uses: actions/checkout@v3
+      - name: Review PR
+        uses: andrewmusgrave/automatic-pull-request-review@0.0.5
+        id: RPR
         with:
-          fetch-depth: 0
-          ref: 'dev'
-      - name: check stage branch
+          repo-token: ${{secrets.GIT_TOKEN}}
+          event: APPROVE
+          body: 'PR Approved'
+      - name: Review Status
         uses: actions/checkout@v3
-        with:
-          ref: 'staging'
-      - name: check-main
-        uses: actions/checkout@v3
-        with:
-          ref: 'main'
-      - name: chk
-        run: git status
+        run: echo "Pull Request Number - ${{ steps.cpr.outputs}}"
         #env:
           #GITHUB_TOKEN: ${{secrets.GIT_TOKEN}}
