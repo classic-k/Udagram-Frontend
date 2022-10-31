@@ -49,7 +49,7 @@ git commit -m "Test Push"
 output=$(git push 2>&1)
 output=$(echo "$output" | grep -o 'Protected.*')
 err="Protected branch update failed for refs/heads/"
-err+="$st"
+err+="$st."
 echo "Output is: $output"
 echo "Error: $err"
 if [[ $output != $err ]]; then
