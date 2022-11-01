@@ -2,6 +2,8 @@ name: frontendCI
   
 on:
 
+  workflow_dispatch:
+
   push:
     branches:
     - dev
