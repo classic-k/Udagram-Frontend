@@ -23,5 +23,19 @@ jobs:
       - name: Test Scripts
         run: ./udagram_tests/git_test.sh
         shell: bash
+      - name: checkout root
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Create pr
+        uses: devops-infra/action-pull-request@v0.5.0
+        with:
+          github_token: ${{ secrets.GIT_TOKEN }}
+          source_branch: dev
+          target_branch: staging
+          title: Merge Dev to staging
+          template: .github/PULL_REQUEST_TEMPLATE.md
+          body: "**Automated pull request**"
+         
       
  
