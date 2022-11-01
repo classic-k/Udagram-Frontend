@@ -22,3 +22,15 @@ jobs:
           body: 'PR Approved'
       - name: Review Status
         run: echo "Pull Request Number - $ {{ steps.RPR.outputs}}"
+      - name: checkout root
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Create pr for main
+        uses: devops-infra/action-pull-request@v0.5.0
+        with:
+          github_token: ${{ secrets.GIT_TOKEN }}
+          source_branch: staging
+          target_branch: main
+          title: PR main from staging
+          body: "**Automated pull request**"
