@@ -4,5 +4,3 @@
 #verify working on feature branch or similar
 #verify cannot push to staging or master (protected branches)
 echo "No test for other repos"
-
-
