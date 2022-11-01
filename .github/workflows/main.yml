@@ -14,15 +14,11 @@ jobs:
       - name: Stage PR Review
         uses: actions/checkout@v3
       - name: Review PR
-        run: echo "PR Review section"
-        #uses: andrewmusgrave/automatic-pull-request-review@0.0.5
-        #id: RPR
-        #with:
-          #repo-token: ${{secrets.GIT_TOKEN}}
-          #event: APPROVE
-          #body: 'PR Approved'
+        uses: andrewmusgrave/automatic-pull-request-review@0.0.5
+        id: RPR
+        with:
+          repo-token: ${{secrets.GIT_TOKEN}}
+          event: APPROVE
+          body: 'PR Approved'
       - name: Review Status
-        run: echo "PR output"
-        #run: echo "Pull Request Number - $ {{ steps.cpr.outputs}}"
-        #env:
-          #GITHUB_TOKEN: ${{secrets.GIT_TOKEN}}
+        run: echo "Pull Request Number - $ {{ steps.RPR.outputs}}"
