@@ -27,12 +27,12 @@ jobs:
           ref: staging
       - name: Create PR
         uses: peter-evans/create-pull-request@v4
+        id: cpr
         with:
           commit-message: Merge Dev Branch
           branch: dev
           title: PR from dev branch
           base: staging
-          id: cpr
           token: ${{secrets.GIT_TOKEN}}
       - name: CPR Status
         run: echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
