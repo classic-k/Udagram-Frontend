@@ -1,5 +1,5 @@
 name: frontendCI
-
+  
 on:
 
   push:
@@ -7,27 +7,34 @@ on:
     - dev
   pull_request:
     branches:
-    - main
+    - dev
 
 jobs:
   dev-branch:
-    name: dev-branch
+    name: Run-test-create-pr
     runs-on: ubuntu-latest
     steps:
-      - name: Check dev branch
+      - name: Tests
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: 'dev'
-      - name: check stage branch
+      - name: Test Scripts
+        run: ./udagram_tests/git_test.sh
+        shell: bash
+      - name: checkout-base
         uses: actions/checkout@v3
         with:
-          ref: 'staging'
-      - name: check-main
-        uses: actions/checkout@v3
+          ref: staging
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v4
         with:
-          ref: 'main'
-      - name: chk
-        run: git status
-        #env:
-          #GITHUB_TOKEN: ${{secrets.GIT_TOKEN}}
+          commit-message: Merge Dev Branch
+          branch: dev
+          title: PR from dev branch
+          base: staging
+          id: cpr
+          token: ${{secrets.GIT_TOKEN}}
+      - name: CPR Status
+        run: echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+        
+ 
