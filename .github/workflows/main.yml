@@ -1,5 +1,5 @@
 name: frontendCI
-
+  
 on:
 
   push:
@@ -21,7 +21,7 @@ jobs:
       - name: Test Scripts
         run: ./udagram_tests/git_test.sh
         shell: bash
-      - name: checkout base
+      - name: checkout-base
         uses: actions/checkout@v3
         with:
           ref: staging
@@ -36,3 +36,5 @@ jobs:
           token: ${{secrets.GIT_TOKEN}}
       - name: CPR Status
         run: echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+        
+ 
