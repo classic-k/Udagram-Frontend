@@ -1,38 +1,28 @@
 name: frontendCI
   
 on:
-
   workflow_dispatch:
-
-  push:
-    branches:
-    - dev
   pull_request:
     branches:
-    - dev
+    - staging
 
 jobs:
-  dev-branch:
-    name: Run-test-create-pr
+  staging-branch:
+    name: stage-branch-pr
     runs-on: ubuntu-latest
     steps:
-      - name: Tests
+      - name: Stage PR Review
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Test Scripts
-        run: ./udagram_tests/git_test.sh
-        shell: bash
-      - name: checkout root
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Create pr
-        uses: devops-infra/action-pull-request@v0.5.0
-        with:
-          github_token: ${{ secrets.GIT_TOKEN }}
-          source_branch: dev
-          target_branch: staging
-          title: Merge Dev to staging
-          body: "**Automated pull request**"
-          #end
+      - name: Review PR
+        run: echo "PR Review section"
+        #uses: andrewmusgrave/automatic-pull-request-review@0.0.5
+        #id: RPR
+        #with:
+          #repo-token: ${{secrets.GIT_TOKEN}}
+          #event: APPROVE
+          #body: 'PR Approved'
+      - name: Review Status
+        run: echo "PR output"
+        #run: echo "Pull Request Number - $ {{ steps.cpr.outputs}}"
+        #env:
+          #GITHUB_TOKEN: ${{secrets.GIT_TOKEN}}
