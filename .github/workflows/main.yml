@@ -1,36 +1,41 @@
 name: frontendCI
-  
+
 on:
   workflow_dispatch:
   pull_request:
     branches:
-    - staging
+    - main
 
 jobs:
   staging-branch:
-    name: stage-branch-pr
+    name: main-branch-pr-merge
     runs-on: ubuntu-latest
     steps:
-      - name: Stage PR Review
+      - name: PR Review
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Review PR
         uses: andrewmusgrave/automatic-pull-request-review@0.0.5
         id: RPR
         with:
-          repo-token: ${{secrets.GIT_TOKEN}}
-          event: APPROVE
           body: 'PR Approved'
+          event: APPROVE
+          repo-token: ${{ secrets.GIT_TOKEN }}
       - name: Review Status
         run: echo "Pull Request Number - $ {{ steps.RPR.outputs}}"
-      - name: checkout root
-        uses: actions/checkout@v3
+
+      - name: login to hub
+        uses: docker/login-action@v2
         with:
-          fetch-depth: 0
-      - name: Create pr for main
-        uses: devops-infra/action-pull-request@v0.5.0
+         username: ${{secrets.Docker_Username}}
+         password: ${{secrets.Docker_Password}}
+      - name: buildX
+        uses: docker/setup-buildx-action@v2
+      - name: build and push
+        uses: docker/build-push-action@v2
         with:
-          github_token: ${{ secrets.GIT_TOKEN }}
-          source_branch: staging
-          target_branch: main
-          title: PR main from staging
-          body: "**Automated pull request**"
+         context: .
+         file: ./Dockerfile
+         push: true
+         tag: ${{secrets.Docker_Username}}/udagram-frontend
