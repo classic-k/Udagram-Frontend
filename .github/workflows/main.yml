@@ -13,13 +13,13 @@ jobs:
     steps:
       - name: Stage PR Review
         uses: actions/checkout@v3
-      - name: Review PR
-        uses: andrewmusgrave/automatic-pull-request-review@0.0.5
-        id: RPR
+      - name: Merge Pull Request
+        uses: juliangruber/merge-pull-request-action@v1
         with:
-          repo-token: ${{secrets.GH_TOKEN}}
-          event: APPROVE
-          body: 'PR Approved'
+          github-token: ${{ secrets.GH_TOKEN }}
+          number: 1
+          method: squash
+          repo: classic-k/Udagram-Frontend
       - name: Review Status
         run: echo "Pull Request Number - $ {{ steps.RPR.outputs}}"
       - name: checkout root
