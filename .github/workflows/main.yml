@@ -13,20 +13,11 @@ jobs:
     steps:
       - name: Stage PR Review
         uses: actions/checkout@v3
-      - name: Approve Pull Request
-        uses: juliangruber/approve-pull-request-action@v2.0.0
-        id: RPR
+      - name: merge PR
+      - uses: reitermarkus/automerge@v2
         with:
-         github-token: ${{ secrets.GH_TOKEN }}
-         number: 1
-         repo: classic-k/Udagram-Frontend
-      - name: Merge Pull Request
-        uses: juliangruber/merge-pull-request-action@v1
-        with:
-         github-token: ${{ secrets.GH_TOKEN }}
-         number: 1
-         method: squash
-         repo: classic-k/Udagram-Frontend
+          token: ${{ secrets.GH_TOKEN }}
+          dry-run: true
       - name: Review Status
         run: echo "Pull Request Number - ${{ steps.RPR.outputs}}"
       - name: checkout root
