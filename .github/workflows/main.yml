@@ -61,4 +61,4 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
         with:
-          PULL_REQUEST: ${{ steps.staging-pr.outputs.pull_request_number}}
+          PULL_REQUEST: ${{ steps.staging-pr.outputs.pr_number}}
