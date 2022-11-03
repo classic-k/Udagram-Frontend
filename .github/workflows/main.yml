@@ -39,7 +39,7 @@ jobs:
           #end
       - name: sleep baby
         run: sleep 5
-       # approve pr
+      # approve pr
       - name: Approve Pull Request
         uses: juliangruber/approve-pull-request-action@v2.0.0
         with:
