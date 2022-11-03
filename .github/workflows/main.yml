@@ -29,6 +29,7 @@ jobs:
           fetch-depth: 0
       - name: Create pr
         uses: devops-infra/action-pull-request@v0.5.0
+        id: staging-pr
         with:
           github_token: ${{ secrets.GIT_TOKEN }}
           source_branch: dev
@@ -44,7 +45,7 @@ jobs:
         uses: juliangruber/approve-pull-request-action@v2.0.0
         with:
          github-token: ${{ secrets.GH_TOKEN }}
-         number: 1
+         number: ${{ steps.staging-pr.outputs.pull_request_number }}
          repo: classic-k/Udagram-Frontend
       # enable auto merge
       - name: enable auto merge
@@ -60,4 +61,4 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
         with:
-          BASE_BRANCHES: staging
+          PULL_REQUEST: ${{ steps.staging-pr.outputs.pull_request_number}}
