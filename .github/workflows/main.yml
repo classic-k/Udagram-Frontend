@@ -1,34 +1,61 @@
 name: frontendCI
-  
+
 on:
+
   workflow_dispatch:
+
+  push:
+    branches:
+    - dev
   pull_request:
     branches:
-    - staging
+    - dev
 
 jobs:
-  staging-branch:
-    name: stage-branch-pr
+  dev-branch:
+    name: Run-test-create-pr
     runs-on: ubuntu-latest
     steps:
-      - name: Stage PR Review
+      - name: Tests
         uses: actions/checkout@v3
-      - name: merge PR
-      - uses: reitermarkus/automerge@v2
         with:
-          token: ${{ secrets.GH_TOKEN }}
-          dry-run: true
-      - name: Review Status
-        run: echo "Pull Request Number - ${{ steps.RPR.outputs}}"
+          fetch-depth: 0
+      - name: Test Scripts
+        run: ./udagram_tests/git_test.sh
+        shell: bash
       - name: checkout root
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Create pr for main
+      - name: Create pr
         uses: devops-infra/action-pull-request@v0.5.0
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          source_branch: staging
-          target_branch: main
-          title: PR main from staging
+          github_token: ${{ secrets.GIT_TOKEN }}
+          source_branch: dev
+          label: automerge
+          target_branch: staging
+          title: Merge Dev to staging
           body: "**Automated pull request**"
+          #end
+      - name: sleep baby
+        run: sleep 5
+      # enable auto merge
+      - name: enable auto merge
+        uses: reitermarkus/automerge@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          required-labels: automerge
+      # approve pr
+      - name: Approve Pull Request
+        uses: juliangruber/approve-pull-request-action@v2.0.0
+        with:
+         github-token: ${{ secrets.GH_TOKEN }}
+         number: 1
+         repo: classic-k/Udagram-Frontend
+      - name: pause
+        run: sleep 5
+      # auto merge pr
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.15.5"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
