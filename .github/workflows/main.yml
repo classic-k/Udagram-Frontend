@@ -32,8 +32,31 @@ jobs:
         with:
           github_token: ${{ secrets.GIT_TOKEN }}
           source_branch: dev
+          label: automerge
           target_branch: staging
           title: Merge Dev to staging
           body: "**Automated pull request**"
           #end
+      - name: sleep baby
+        run: sleep 5
+      # enable auto merge
+      - name: enable auto merge
+        uses: reitermarkus/automerge@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          required-labels: automerge
+      # approve pr
+      - name: Approve Pull Request
+        uses: juliangruber/approve-pull-request-action@v2.0.0
+        with:
+         github-token: ${{ secrets.GH_TOKEN }}
+         number: 1
+         repo: classic-k/Udagram-Frontend
+      - name: pause
+        run: sleep 5
+      # auto merge pr
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.15.5"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
       
