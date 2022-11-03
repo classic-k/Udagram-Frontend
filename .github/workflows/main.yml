@@ -45,7 +45,7 @@ jobs:
         uses: juliangruber/approve-pull-request-action@v2.0.0
         with:
          github-token: ${{ secrets.GH_TOKEN }}
-         number: ${{ steps.staging-pr.outputs.pull_request_number }}
+         number: ${{ steps.staging-pr.outputs.pr_number }}
          repo: classic-k/Udagram-Frontend
       # enable auto merge
       - name: enable auto merge
