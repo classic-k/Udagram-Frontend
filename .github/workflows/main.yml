@@ -1,7 +1,6 @@
 name: frontendCI
 
 on:
-
   workflow_dispatch:
 
   push:
