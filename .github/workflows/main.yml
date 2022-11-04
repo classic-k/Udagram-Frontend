@@ -11,6 +11,7 @@ on:
 
 jobs:
   dev-branch:
+    name: test-cr
     runs-on: ubuntu-latest
     outputs:
       pr-num: ${{ steps.staging-pr.outputs.pr_numuber }}
