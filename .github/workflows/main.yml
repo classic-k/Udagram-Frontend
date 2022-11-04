@@ -25,5 +25,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tag: classicmeone/udagram-frontend
+          tag: ${{secrets.Docker_Username}}/udagram-frontend:latest
 
