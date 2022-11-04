@@ -40,7 +40,7 @@ jobs:
       - name: sleep baby
         run: sleep 5
       - name: echos
-        run: echo "output cr ${{ steps.staging-pr.outputs.pr_number }}"
+        run: echo "output cr ${{ steps.staging-pr.outputs.pr_number }} ${{ steps.staging-pr.outputs.url }}"
       # approve pr
       - name: Approve Pull Request
         uses: juliangruber/approve-pull-request-action@v2.0.0
