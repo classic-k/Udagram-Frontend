@@ -12,6 +12,8 @@ on:
 jobs:
   dev-branch:
     runs-on: ubuntu-latest
+    outputs:
+      pr-num: ${{ steps.staging-pr.outputs.pr_number }}
     steps:
       - name: Tests
         uses: actions/checkout@v3
@@ -48,7 +50,7 @@ jobs:
         uses: juliangruber/approve-pull-request-action@v2.0.0
         with:
          github-token: ${{ secrets.GH_TOKEN }}
-         number: "${{ dev-branch.steps.staging-pr.outputs.pr_number }}"
+         number: "${{ jobs.dev-branch.outputs.pr_num }}"
          repo: classic-k/Udagram-Frontend
       - name: pause
         run: sleep 5
@@ -57,4 +59,4 @@ jobs:
         uses: "pascalgn/automerge-action@v0.15.5"
         env:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
-          PULL_REQUEST: ${{ dev-branch.steps.staging-pr.outputs.pr_number}}
+          PULL_REQUEST: ${{ jobs.dev-branch.outputs.pr_num}}
