@@ -29,9 +29,10 @@ jobs:
           body: "**Automated pull request**"
           #end
       - name: set-outs
-        run: echo "${{ steps.main-pr.outputs.pr_number }}"
+        run: echo "pr number ${{ steps.main-pr.outputs.url }} ${{ steps.main-pr.outputs.pr_number }}"
   approve:
     runs-on: ubuntu-latest
+    name: approve-merge
     needs: [stage-branch]
     steps:
       - name: echos
