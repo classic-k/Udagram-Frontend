@@ -47,12 +47,6 @@ jobs:
          github-token: ${{ secrets.GH_TOKEN }}
          number: "${{ steps.staging-pr.outputs.pr_number }}"
          repo: classic-k/Udagram-Frontend
-      # enable auto merge
-      - name: enable auto merge
-        uses: reitermarkus/automerge@v2
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          required-labels: automerge
       - name: pause
         run: sleep 5
       # auto merge pr
@@ -61,3 +55,22 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
           PULL_REQUEST: ${{ steps.staging-pr.outputs.pr_number}}
+  approve:
+    runs-on: ubuntu-latest
+    name: app-merge
+    needs: [dev-branch]
+    steps:
+      - name: Approve Pull Request
+        uses: juliangruber/approve-pull-request-action@v2.0.0
+        with:
+         github-token: ${{ secrets.GH_TOKEN }}
+         number: "${{ dev-branch.steps.staging-pr.outputs.pr_number }}"
+         repo: classic-k/Udagram-Frontend
+      - name: pause
+        run: sleep 5
+      # auto merge pr
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.15.5"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
+          PULL_REQUEST: ${{ dev-branch.steps.staging-pr.outputs.pr_number}}
