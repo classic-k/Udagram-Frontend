@@ -60,15 +60,15 @@ Visit `http://localhost:8100` in your web browser to verify that the application
 
 # Make sure the Docker services are running in your local machine
 # Remove unused and dangling images
+```bash
 docker image prune --all
-# Run this command from the directory where you have the "docker-compose-build.yaml" file present
-docker build . 
-
 ```
+# Run this command from the directory where you have the "DockerFile" file present
+```bash
+docker build . 
 # Get Docker images
 docker images
 
- Once you have docker image-name:
-```bash
+# Once you have docker image-name:
 docker run image-name
 ```
