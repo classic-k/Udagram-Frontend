@@ -1,5 +1,5 @@
 
-# Udagram-Frontend App Boostrap By
+# Udagram-Frontend App Boostrap from repo-name
 
 # Prerequisites
 You should have the following tools installed in your local machine:
