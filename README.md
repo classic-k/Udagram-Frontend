@@ -3,15 +3,9 @@
 
 # Prerequisites
 You should have the following tools installed in your local machine:
-* Git
 * Node.js
 * Ionic CLI
 * Docker
-* AWS CLI
-* kubectl
-
-### Instructions
-Install [Git](https://git-scm.com/downloads) for your corresponding operating system.
 
 ## Node.js
 ### Instructions
@@ -63,3 +57,18 @@ ionic serve
 
 ### Verification
 Visit `http://localhost:8100` in your web browser to verify that the application is running. You should see a web interface.
+
+# Make sure the Docker services are running in your local machine
+# Remove unused and dangling images
+docker image prune --all
+# Run this command from the directory where you have the "docker-compose-build.yaml" file present
+docker build . 
+
+```
+# Get Docker images
+docker images
+
+ Once you have docker image-name:
+```bash
+docker run image-name
+```
